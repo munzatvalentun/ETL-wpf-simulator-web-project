@@ -1,0 +1,53 @@
+﻿@using ETL_web_project.DTOs.Etl.Schedule
+@model EtlScheduleEditDto
+
+@{
+    ViewData["Title"] = "Edit Schedule";
+}
+
+<section class="etl-schedule-edit-page page-container">
+
+    <h2>Edit Schedule</h2>
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="ScheduleId" />
+
+        <div class="form-group">
+            <label>Job</label>
+            <select asp-for="JobId" class="input-control">
+                @foreach (var job in ViewBag.AvailableJobs)
+                {
+                    <option value="@job.JobId" selected="@(job.JobId == Model.JobId)">
+                        @job.JobName (@job.JobCode)
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mt-3">
+            <label>Frequency</label>
+            <input asp-for="FrequencyText" class="input-control"
+                   placeholder="e.g., Every hour, Daily at 02:00" />
+        </div>
+
+        <div class="form-group mt-3">
+            <label>Status</label>
+            <select asp-for="IsActive" class="input-control">
+                <option value="true" selected="@(Model.IsActive)">Active</option>
+                <option value="false" selected="@(!Model.IsActive)">Paused</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-purple">Save Changes</button>
+
+            <a asp-action="Index" class="btn-cancel">Cancel</a>
+        </div>
+
+    </form>
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/etl/schedule-edit-create.css" asp-append-version="true" />
+}

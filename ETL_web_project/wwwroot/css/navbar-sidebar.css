@@ -1,0 +1,258 @@
+﻿*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+    color: white;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background: #161a2d;
+    padding: 25px 20px;
+    transition: all 0.4s ease;
+    z-index: 100;
+}
+
+.sidebar:hover {
+    width: 260px;
+}
+
+body{
+    min-height:100vh;
+    background: #d2d2d2;
+}
+
+.sidebar-header{
+    display: flex;
+    align-items:center;
+}
+
+.sidebar-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 23px;
+}
+
+.sidebar-links {
+    list-style: none;
+    margin-top: 20px;
+    height: 80%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.sidebar-links h4 span{
+    opacity: 0;
+}
+
+.sidebar:hover .sidebar-links h4 span {
+    opacity: 1;
+}
+
+.sidebar-links h4 {
+    color: white;
+    font-weight: 500;
+    margin: 10px 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.sidebar-links .menu-separator {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(1);
+    transform: translateY(-50%);
+    background: #333578;
+    transform-origin: right;
+    transition-duration: 0.2s;
+}
+
+.sidebar:hover .sidebar-links .menu-separator {
+    transition-delay: 0s;
+    transform: scaleX(0);
+}
+
+.sidebar-links li a {
+    display: flex;
+    align-items: center;
+    gap: 0 20px;
+    color: #dbd4d4e3;
+    font-weight: 500;
+    padding: 15px 10px;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.sidebar-links li a:hover {
+    background: #ffffff2d;
+    color: white;
+    border-radius: 4px;
+}
+
+.main-wrapper {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+    transition: margin-left 0.4s ease, width 0.4s ease;
+}
+
+.sidebar:hover ~ .main-wrapper {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+}
+
+.user-account {
+    margin-top: auto;
+    padding: 12px 10px;
+    margin-left: -10px;
+}
+
+.user-account .user-profile {
+    display: flex;
+    align-items: center;
+    color: #e5dede;
+}
+
+.user-profile img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.user-profile h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.user-detail {
+    margin-left: 23px;
+    white-space: nowrap;
+}
+
+.user-profile span {
+    font-size: 0.775rem;
+    font-weight: 500;
+    display: block;
+    margin-top: 0;
+}
+
+.sidebar:hover .user-account {
+    background: #ffffff2d;
+    border-radius: 4px;
+}
+
+
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #161a2d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1000;
+    transition: none;
+}
+
+.sidebar:hover ~ .top-navbar {
+    left: 0;
+    width: 100%;
+}
+
+.main-content {
+    margin-left: 80px;
+    margin-top: 60px;
+    padding: 1rem;
+    transition: margin-left 0.4s;
+}
+.dashboard {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, rgba(76, 29, 149, 0.55) 0%, #0b1120 35%, #020617 100%)
+}
+.dashboard-container,
+.dash-container {
+    background: transparent;
+}
+
+.sidebar:hover ~ .main-content {
+    margin-left: 260px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon-btn {
+    background: #171d3500;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.js-toggle-fullscreen-btn {
+    position: relative;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.toggle-fullscreen-svg path {
+    transform-box: view-box;
+    transform-origin: 12px 12px;
+    fill: none;
+    stroke: hsl(225, 10%, 8%);
+    stroke: #ffffff;
+    stroke-width: 4;
+    transition: .5s;
+}
+
+.js-toggle-fullscreen-btn:not(.on) .icon-fullscreen-leave {
+    display: none;
+}
+
+.js-toggle-fullscreen-btn.on .icon-fullscreen-enter {
+    display: none;
+}
+
+.dashboard-footer {
+    margin-top: 40px;
+    padding: 18px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    width: 100%;
+}
+.page-container {
+    min-height: calc(100vh - 180px);
+}

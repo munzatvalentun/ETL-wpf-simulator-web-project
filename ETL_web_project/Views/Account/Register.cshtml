@@ -1,0 +1,97 @@
+﻿@using ETL_web_project.DTOs.Account
+@model RegisterDto
+
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+
+<div class="login-page-wrapper">
+    <div class="login-card">
+
+        <div class="text-center mb-3">
+            <div class="login-brand-circle">
+                <span>DW</span>
+            </div>
+
+            <h3 class="login-title mb-1">Create an Account</h3>
+            <p class="login-subtitle mb-0">
+                Set up your access to the Retail DW &amp; ETL Monitor platform.
+            </p>
+        </div>
+
+        <form asp-action="Register" asp-controller="Account" method="post" class="mt-3">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FullName" class="login-label"></label>
+                <input asp-for="FullName" class="form-control login-input" placeholder="e.g. John Smith" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+                <small class="login-footer-text">
+                    This name may be shown in logs, dashboards, and audit trails.
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Username" class="login-label"></label>
+                <input asp-for="Username" class="form-control login-input" placeholder="e.g. j.smith" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+                <small class="login-footer-text">
+                    Use a short, unique identifier. You will use this to sign in.
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="login-label"></label>
+                <input asp-for="Email" class="form-control login-input" placeholder="e.g. j.smith@company.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <small class="login-footer-text">
+                    We'll use this for notifications about ETL jobs and system alerts (if enabled).
+                </small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="login-label"></label>
+                <input asp-for="Password" class="form-control login-input" placeholder="Create a strong password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <small class="login-footer-text">
+                    Use at least 8 characters, including numbers and symbols if possible.
+                </small>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="ConfirmPassword" class="login-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control login-input" placeholder="Re-enter your password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-login-primary w-100 mb-3">
+                Create Account
+            </button>
+
+            <div class="text-center mb-2">
+                <span class="login-footer-text">
+                    Already have an account?
+                    <a asp-action="Login" asp-controller="Account" class="login-link">Sign in</a>
+                </span>
+            </div>
+        </form>
+
+        <div class="mt-3 text-center">
+            <p class="login-footer-text mb-0">
+                Once your account is created, your role and permissions will determine which
+                ETL jobs, logs, and monitoring tools you can access.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

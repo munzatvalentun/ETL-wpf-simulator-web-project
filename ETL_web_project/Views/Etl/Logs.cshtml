@@ -1,0 +1,131 @@
+﻿@model EtlLogSummaryDto
+@using ETL_web_project.DTOs.Etl.EtlLogs
+@using ETL_web_project.Enums;
+
+@{
+    ViewData["Title"] = "ETL Logs";
+}
+<link rel="stylesheet" href="~/css/dashboard/dashboard-main.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/etl/logs.css" asp-append-version="true" />
+
+
+<section class="dash-container">
+
+    <div class="dash-row">
+        <div class="card full-width-card">
+            <div class="card-header">
+                <div>
+                    <h1 class="card-title">ETL Logs</h1>
+                    <span class="card-subtitle">Execution logs, errors, warnings & pipeline messages</span>
+                </div>
+                <div class="card-header-right">
+                    <span class="chip chip-outline">Total: @Model.Logs.Count</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dash-row kpi-row">
+
+        <div class="card kpi-card">
+            <div class="kpi-icon kpi-icon-red">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="kpi-content">
+                <span class="kpi-label">Errors</span>
+                <h2 class="kpi-value">@Model.ErrorCount</h2>
+                <span class="kpi-sub">@Model.ErrorsLast24h errors last 24h</span>
+            </div>
+        </div>
+
+        <div class="card kpi-card">
+            <div class="kpi-icon kpi-icon-yellow">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="kpi-content">
+                <span class="kpi-label">Warnings</span>
+                <h2 class="kpi-value">@Model.WarningCount</h2>
+                <span class="kpi-sub">@Model.WarningsLast24h warnings last 24h</span>
+            </div>
+        </div>
+
+        <div class="card kpi-card">
+            <div class="kpi-icon kpi-icon-blue">
+                <i class="fa-solid fa-info"></i>
+            </div>
+            <div class="kpi-content">
+                <span class="kpi-label">Info</span>
+                <h2 class="kpi-value">@Model.InfoCount</h2>
+                <span class="kpi-sub">@Model.InfoLast24h info last 24h</span>
+            </div>
+        </div>
+
+        <div class="card kpi-card">
+            <div class="kpi-icon kpi-icon-purple">
+                <i class="fa-solid fa-gears"></i>
+            </div>
+            <div class="kpi-content">
+                <span class="kpi-label">Active Runs</span>
+                <h2 class="kpi-value">@Model.ActiveRuns</h2>
+                <span class="kpi-sub">Running ETL pipelines</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="dash-row">
+        <div class="card full-width-card">
+
+            <div class="card-header">
+                <h3 class="card-title">Log Records</h3>
+                <span class="card-subtitle">Sorted by newest first</span>
+            </div>
+
+            <div class="card-body table-wrapper">
+                <table class="table compact-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Level</th>
+                            <th>Job</th>
+                            <th>RunId</th>
+                            <th>Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Logs.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="table-empty">No logs found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var log in Model.Logs)
+                            {
+                                var css = log.Level switch
+                                {
+                                    LogLevel.Error => "etl-status-failed",
+                                    LogLevel.Warn => "etl-status-warning",
+                                    LogLevel.Info => "etl-status-info",
+                                    _ => string.Empty
+                                };
+
+
+                                <tr class="@css">
+                                    <td>@log.LogTime.ToString("g")</td>
+                                    <td>@log.Level</td>
+                                    <td>@log.JobName (@log.JobCode)</td>
+                                    <td>#@log.RunId</td>
+                                    <td>@log.Message</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</section>

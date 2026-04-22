@@ -1,0 +1,181 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="en" class="dark-theme">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ETL_web_project</title>
+
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/navbar-sidebar.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <div class="dashboard">
+
+        <aside class="sidebar">
+            @{
+                string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value ?? "";
+                bool IsAdmin = role == "Admin";
+                bool IsEngineer = role == "DataEngineer";
+                bool IsAnalyst = role == "Analyst";
+            }
+
+            <ul class="sidebar-links">
+              
+                <li class="menu-title">
+
+                    <h4>
+                        <span>Main Menu</span>
+                        <div class="menu-separator"></div>
+                    </h4>
+                </li>
+
+                <li>
+                    <a asp-controller="Dashboard" asp-action="Index">
+                        <i class="fa-solid fa-gauge-high"></i> Dashboard panel
+                    </a>
+                </li>
+
+                <li class="@(IsAdmin || IsEngineer ? "" : "locked")">
+                    <a asp-controller="Etl" asp-action="Jobs">
+                        <i class="fa-solid fa-gears"></i> ETL Jobs
+                        @if (!(IsAdmin || IsEngineer))
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li class="@(IsAdmin || IsEngineer ? "" : "locked")">
+                    <a asp-controller="Etl" asp-action="Logs">
+                        <i class="fa-solid fa-file-lines"></i> ETL Logs
+                        @if (!(IsAdmin || IsEngineer))
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li class="@(IsAdmin || IsEngineer ? "" : "locked")">
+                    <a asp-controller="Etl" asp-action="Staging">
+                        <i class="fa-solid fa-layer-group"></i> Staging Tables
+                        @if (!(IsAdmin || IsEngineer))
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li class="@(IsAdmin || IsAnalyst ? "" : "locked")">
+                    <a asp-controller="Etl" asp-action="Facts">
+                        <i class="fa-solid fa-chart-bar"></i> Fact Explorer
+                        @if (!(IsAdmin || IsAnalyst))
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li class="@(IsAdmin || IsEngineer ? "" : "locked")">
+                    <a asp-controller="EtlSchedule" asp-action="Index">
+                        <i class="fa-solid fa-calendar-check"></i> ETL Schedule
+                        @if (!(IsAdmin || IsEngineer))
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li class="menu-title">
+
+                    <h4>
+                        <span>Account</span>
+                        <div class="menu-separator"></div>
+                    </h4>
+                </li>
+
+                <li class="@(IsAdmin ? "" : "locked")">
+                    <a asp-controller="Admin" asp-action="Index">
+                        <i class="fa-solid fa-user-tie"></i> Admin panel
+                        @if (!IsAdmin)
+                        {
+                            <i class="fa-solid fa-lock lock-icon"></i>
+                        }
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Settings" asp-action="Index">
+                        <i class="fa-solid fa-screwdriver-wrench"></i> Settings
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Account" asp-action="Logout">
+                        <i class="fa-solid fa-right-to-bracket"></i> Logout
+                    </a>
+                </li>
+            </ul>
+
+            <div class="user-account">
+                <div class="user-profile">
+                    <img src="~/images/profile-img.png" alt="profile-img" />
+                    <div class="user-detail">
+                        <h3>@User.Identity?.Name</h3>
+                        <span>@role</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="main-wrapper">
+            <nav class="top-navbar">
+
+                <div class="nav-left">
+                    <div class="sidebar-header">
+                        <a asp-controller="Dashboard" asp-action="Index">
+                            <i class="fas fa-cube fa-2x logo"></i>
+                        </a>
+                        <h2>Monitor</h2>
+                    </div>
+                </div>
+
+                <div class="nav-right">
+
+                    <button class="icon-btn js-toggle-fullscreen-btn" id="fullscreenBtn" aria-label="Enter fullscreen mode">
+                        <svg class="toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
+                            <g class="icon-fullscreen-enter">
+                                <path d="M 2 9 v -7 h 7" />
+                                <path d="M 22 9 v -7 h -7" />
+                                <path d="M 22 15 v 7 h -7" />
+                                <path d="M 2 15 v 7 h 7" />
+                            </g>
+                            <g class="icon-fullscreen-leave">
+                                <path d="M 24 17 h -7 v 7" />
+                                <path d="M 0 17 h 7 v 7" />
+                                <path d="M 0 7 h 7 v -7" />
+                                <path d="M 24 7 h -7 v -7" />
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <main class="main-content">
+                <div class="dashboard-container">
+                    @RenderBody()
+                </div>
+            </main>
+            
+            <footer class="dashboard-footer">
+                <span>© @DateTime.Now.Year Monitor — ETL & Data Pipeline Dashboard</span>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/js/navbar-sidebar.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

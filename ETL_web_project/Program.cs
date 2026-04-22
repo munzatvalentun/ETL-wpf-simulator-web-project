@@ -1,0 +1,61 @@
+using ETL_web_project.Data.Context;
+using ETL_web_project.Interfaces;
+using ETL_web_project.Mappings;
+using ETL_web_project.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ProjectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(UserAccountProfile).Assembly);
+
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ISettingsService, SettingsService>();
+
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
+builder.Services.AddScoped<IEtlLogService, EtlLogService>();
+
+builder.Services.AddScoped<IEtlJobService, EtlJobService>();
+
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IStagingService, StagingService>();
+builder.Services.AddScoped<IEtlScheduleOverviewService, EtlScheduleOverviewService>();
+builder.Services.AddScoped<IEtlScheduleService, EtlScheduleService>();
+
+builder.Services.AddScoped<IFactExplorerService, FactExplorerService>();
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error.html");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Account}/{action=Login}/{id?}");
+
+app.Run();

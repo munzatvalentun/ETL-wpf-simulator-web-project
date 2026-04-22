@@ -1,0 +1,125 @@
+﻿@model ETL_web_project.ViewModels.SettingsViewModel
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<link rel="stylesheet" href="~/css/settings.css" asp-append-version="true" />
+
+<div class="settings-container page-container">
+
+    @if (TempData["ProfileSuccess"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["ProfileSuccess"]
+        </div>
+    }
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger small mb-2" })
+
+    <div class="settings-tabs">
+        <button class="tab-btn @(TempData["ActiveTab"]?.ToString() == "profile" ? "active" : "")" data-tab="profile">Profile</button>
+        <button class="tab-btn @(TempData["ActiveTab"]?.ToString() == "password" ? "active" : "")" data-tab="password">Password</button>
+        <button class="tab-btn @(TempData["ActiveTab"]?.ToString() == "request" ? "active" : "")" data-tab="request">Requests</button>
+    </div>
+
+
+    <div class="tab-content @(TempData["ActiveTab"]?.ToString() == "profile" || TempData["ActiveTab"] == null ? "active" : "")" id="profile">
+
+        <form id="profile-form" asp-action="UpdateProfile" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="Profile.Username"></label>
+                <input asp-for="Profile.Username" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Profile.Email"></label>
+                <input asp-for="Profile.Email" class="form-control" />
+            </div>
+
+            <input asp-for="Profile.ConfirmPassword" type="hidden" id="confirmPasswordHidden" />
+
+            <div class="form-actions">
+                <button type="button" class="btn-primary js-profile-save">Save</button>
+                <button type="reset" class="btn-secondary">Reset ↺</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-content @(TempData["ActiveTab"]?.ToString() == "password" ? "active" : "")" id="password">
+
+        <form asp-action="ChangePassword" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label asp-for="PasswordModel.CurrentPassword"></label>
+                <input name="CurrentPassword" type="password" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PasswordModel.NewPassword"></label>
+                <input name="NewPassword" type="password" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PasswordModel.ConfirmPassword"></label>
+                <input name="ConfirmPassword" type="password" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn-primary mt-2">Change Password</button>
+        </form>
+
+    </div>
+
+    <div class="tab-content @(TempData["ActiveTab"]?.ToString() == "request" ? "active" : "")" id="request">
+
+        <div class="request-info">Use this form to send a request to the admin.</div>
+
+        <form class="contact-form" id="request-form"
+              action="https://api.web3forms.com/submit" method="POST">
+
+            <input type="hidden" name="access_key" value="youraccesskey" />
+            <input type="hidden" name="subject" value="ETL Monitor - User Request" />
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" value="@Model.Profile.Username" readonly required />
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="@Model.Profile.Email" readonly required />
+            </div>
+
+            <div class="form-group">
+                <label>Request / Message</label>
+                <textarea name="message" rows="4" placeholder="Explain your request..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Send Request</button>
+        </form>
+    </div>
+
+</div>
+
+<div id="profileConfirmModal" class="modal-overlay hidden">
+    <div class="modal-card">
+        <h3>Confirm Profile Update</h3>
+        <p>Please enter your password to confirm.</p>
+
+        <input type="password" id="profilePasswordInput" class="form-control" />
+
+        <div class="modal-actions">
+            <button type="button" id="profileCancel" class="btn btn-secondary">Cancel</button>
+            <button type="button" id="profileConfirm" class="btn btn-primary">Confirm</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/settings/settings-tabs.js"></script>
+    <script src="~/js/settings/settings-profile.js"></script>
+}

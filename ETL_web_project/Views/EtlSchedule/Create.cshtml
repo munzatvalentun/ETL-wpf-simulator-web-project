@@ -1,0 +1,51 @@
+﻿@using ETL_web_project.DTOs.Etl.Schedule
+@model EtlScheduleCreateFormDto
+
+@{
+    ViewData["Title"] = "Add Schedule";
+}
+
+<section class="etl-schedule-create-page page-container">
+
+    <div class="page-header">
+        <h2>Add ETL Schedule</h2>
+        <p>Create a new automatic execution rule for an ETL job</p>
+    </div>
+
+    <div class="form-card">
+        <form asp-action="Create" method="post">
+
+            <div class="form-group">
+                <label>Job</label>
+                <select asp-for="CreateDto.JobId" class="input-control">
+                    <option value="">Select job...</option>
+                    @foreach (var job in Model.AvailableJobs)
+                    {
+                        <option value="@job.JobId">@job.JobName (@job.JobCode)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Frequency</label>
+                <input asp-for="CreateDto.FrequencyText"
+                       class="input-control"
+                       placeholder="Example: Every hour, Daily at 02:00, Weekly on Monday 03:00" />
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-purple">Create Schedule</button>
+
+                <a asp-action="Index" class="btn-cancel">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/etl/schedule-edit-create.css" asp-append-version="true" />
+}

@@ -1,0 +1,305 @@
+<Window x:Class="ETL_simulator.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ETL Simulator" Height="700" Width="1100"
+        Background="#020617" Foreground="White"
+        FontFamily="Segoe UI" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Button style -->
+        <Style x:Key="BtnStyle" TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="12,0">
+                            <ContentPresenter x:Name="Content"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root"    Property="Background" Value="#374151"/>
+                                <Setter TargetName="Content" Property="TextElement.Foreground" Value="#6b7280"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.88"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Stage card style -->
+        <Style x:Key="StageCard" TargetType="Border">
+            <Setter Property="Width" Value="155"/>
+            <Setter Property="Height" Value="130"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="14"/>
+        </Style>
+
+        <Style x:Key="LabelText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Foreground" Value="#9ca3af"/>
+            <Setter Property="Margin" Value="0,0,0,2"/>
+        </Style>
+
+        <Style x:Key="ValueText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#e5e7eb"/>
+        </Style>
+
+        <Style x:Key="SliderStyle" TargetType="Slider">
+            <Setter Property="Foreground" Value="#6366f1"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="64"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#6366f1" Offset="0"/>
+                    <GradientStop Color="#a855f7" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <TextBlock Text="⚡ ETL Simulator" FontSize="18" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="20,0"/>
+                <TextBlock Text="Medallion Architecture: Bronze → Silver → Gold"
+                           FontSize="12" Foreground="#e0d9ff"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="0,0,20,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Main content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Controls -->
+            <Border Grid.Column="0" Background="#111827" Margin="8,8,4,8" CornerRadius="10" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="КЕРУВАННЯ" FontSize="11" FontWeight="Bold"
+                               Foreground="#9ca3af" Margin="0,0,0,14"/>
+
+                    <Button Style="{StaticResource BtnStyle}" Background="#6366f1"
+                            Foreground="White" Content="▶  Start"
+                            Command="{Binding StartCommand}"/>
+                    <Button Style="{StaticResource BtnStyle}" Background="#16a34a"
+                            Foreground="White" Content="■  Stop"
+                            Command="{Binding StopCommand}"/>
+                    <Button Style="{StaticResource BtnStyle}" Background="#1f2937"
+                            Foreground="#e5e7eb" Content="⏭  Step (1 крок)"
+                            Command="{Binding StepCommand}"/>
+                    <Button Style="{StaticResource BtnStyle}" Background="#0f172a"
+                            Foreground="#6b7280" Content="🗑  Очистити лог"
+                            Command="{Binding ClearLogCommand}"/>
+
+                    <Separator Background="#1f2937" Margin="0,14"/>
+
+                    <TextBlock Style="{StaticResource LabelText}" Text="Розмір батчу"/>
+                    <TextBlock FontSize="15" FontWeight="Bold" Foreground="#818cf8"
+                               Text="{Binding BatchSize, StringFormat='{}{0} записів'}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Minimum="5" Maximum="100"
+                            Value="{Binding BatchSize}" TickFrequency="5" Margin="0,4,0,10"/>
+
+                    <TextBlock Style="{StaticResource LabelText}" Text="Рівень помилок"/>
+                    <TextBlock FontSize="15" FontWeight="Bold" Foreground="#F44336"
+                               Text="{Binding ErrorRate, StringFormat='{}{0:F0}%'}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Minimum="0" Maximum="40"
+                            Value="{Binding ErrorRate}" Margin="0,4,0,10"/>
+
+                    <TextBlock Style="{StaticResource LabelText}" Text="Затримка між кроками"/>
+                    <TextBlock FontSize="15" FontWeight="Bold" Foreground="#FFC107"
+                               Text="{Binding DelayMs, StringFormat='{}{0} мс'}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Minimum="300" Maximum="5000"
+                            Value="{Binding DelayMs}" TickFrequency="100" Margin="0,4,0,10"/>
+
+                    <CheckBox Content="Генерувати дублікати" Foreground="#B0BEC5"
+                              IsChecked="{Binding EnableDuplicates}" Margin="0,6"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Center: Pipeline visualizer -->
+            <Border Grid.Column="1" Background="#111827" Margin="4,8" CornerRadius="10">
+                <Grid>
+                    <TextBlock Text="PIPELINE VISUALIZER" FontSize="11" FontWeight="Bold"
+                               Foreground="#9ca3af" Margin="20,16,0,0"
+                               VerticalAlignment="Top"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <!-- Bronze -->
+                        <Border Style="{StaticResource StageCard}"
+                                Background="#2D1A00" BorderBrush="#CD7F32" BorderThickness="2">
+                            <StackPanel>
+                                <TextBlock Text="🥉 BRONZE" FontSize="12" FontWeight="Bold"
+                                           Foreground="#CD7F32" Margin="0,0,0,8"/>
+                                <TextBlock Text="stg.SalesRaw" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
+                                <TextBlock Style="{StaticResource LabelText}" Text="Всього"/>
+                                <TextBlock Style="{StaticResource ValueText}"
+                                           Text="{Binding BronzeTotal}"/>
+                                <TextBlock FontSize="12" Foreground="#CD7F32" Margin="0,6,0,0"
+                                           Text="{Binding BronzeStatus}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Arrow -->
+                        <TextBlock Text="→" FontSize="32" Foreground="#1f2937"
+                                   VerticalAlignment="Center" Margin="10,0"/>
+
+                        <!-- Silver -->
+                        <Border Style="{StaticResource StageCard}"
+                                Background="#1A1A2A" BorderBrush="#9E9E9E" BorderThickness="2">
+                            <StackPanel>
+                                <TextBlock Text="🥈 SILVER" FontSize="12" FontWeight="Bold"
+                                           Foreground="#C0C0C0" Margin="0,0,0,8"/>
+                                <TextBlock Text="silver.SalesClean" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
+                                <TextBlock Style="{StaticResource LabelText}" Text="Прийнято"/>
+                                <TextBlock Style="{StaticResource ValueText}"
+                                           Text="{Binding SilverTotal}"/>
+                                <TextBlock FontSize="12" Foreground="#C0C0C0" Margin="0,6,0,0"
+                                           Text="{Binding SilverStatus}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Arrow -->
+                        <TextBlock Text="→" FontSize="32" Foreground="#1f2937"
+                                   VerticalAlignment="Center" Margin="10,0"/>
+
+                        <!-- Gold -->
+                        <Border Style="{StaticResource StageCard}"
+                                Background="#2D2800" BorderBrush="#FFD700" BorderThickness="2">
+                            <StackPanel>
+                                <TextBlock Text="🥇 GOLD" FontSize="12" FontWeight="Bold"
+                                           Foreground="#FFD700" Margin="0,0,0,8"/>
+                                <TextBlock Text="dw.FactSales" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
+                                <TextBlock Style="{StaticResource LabelText}" Text="Завантажено"/>
+                                <TextBlock Style="{StaticResource ValueText}"
+                                           Text="{Binding GoldTotal}"/>
+                                <TextBlock FontSize="12" Foreground="#FFD700" Margin="0,6,0,0"
+                                           Text="{Binding GoldStatus}"/>
+                            </StackPanel>
+                        </Border>
+
+                    </StackPanel>
+
+                    <!-- Running indicator -->
+                    <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,16"
+                            Background="#111827" CornerRadius="12" Padding="12,5">
+                        <TextBlock FontSize="12" FontWeight="SemiBold">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="⬤  Зупинено"/>
+                                    <Setter Property="Foreground" Value="#555"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                            <Setter Property="Text" Value="⬤  Симуляція активна"/>
+                                            <Setter Property="Foreground" Value="#a855f7"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Right: Live log -->
+            <Border Grid.Column="2" Background="#111827" Margin="4,8,8,8" CornerRadius="10" Padding="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="LIVE LOG" FontSize="11" FontWeight="Bold"
+                               Foreground="#9ca3af" Margin="0,0,0,10"/>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Logs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="0,1" Padding="6,4" CornerRadius="4"
+                                            Background="#0f172a">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="36"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding TimeText}"
+                                                       FontSize="10" Foreground="#555" FontFamily="Consolas"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding LevelText}"
+                                                       FontSize="10" FontFamily="Consolas"
+                                                       Foreground="{Binding Color}"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Message}"
+                                                       FontSize="11" Foreground="{Binding Color}"
+                                                       TextWrapping="Wrap"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Bottom stats bar -->
+        <Border Grid.Row="2" Background="#161a2d" Padding="20,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="ЗГЕНЕРОВАНО" FontSize="10" Foreground="#9ca3af"/>
+                    <TextBlock Text="{Binding TotalGenerated}" FontSize="22"
+                               FontWeight="Bold" Foreground="#CD7F32"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="ПРОЙШЛО SILVER" FontSize="10" Foreground="#9ca3af"/>
+                    <TextBlock Text="{Binding PassedSilver}" FontSize="22"
+                               FontWeight="Bold" Foreground="#C0C0C0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <TextBlock Text="ВІДХИЛЕНО" FontSize="10" Foreground="#9ca3af"/>
+                    <TextBlock Text="{Binding Rejected}" FontSize="22"
+                               FontWeight="Bold" Foreground="#F44336"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                    <TextBlock Text="ЗАВАНТАЖЕНО В GOLD" FontSize="10" Foreground="#9ca3af"/>
+                    <TextBlock Text="{Binding LoadedToGold}" FontSize="22"
+                               FontWeight="Bold" Foreground="#FFD700"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
