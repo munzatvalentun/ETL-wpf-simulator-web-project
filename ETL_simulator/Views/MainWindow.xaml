@@ -142,12 +142,20 @@
             <!-- Center: Pipeline visualizer -->
             <Border Grid.Column="1" Background="#111827" Margin="4,8" CornerRadius="10">
                 <Grid>
-                    <TextBlock Text="PIPELINE VISUALIZER" FontSize="11" FontWeight="Bold"
-                               Foreground="#9ca3af" Margin="20,16,0,0"
-                               VerticalAlignment="Top"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
+                    <!-- Header -->
+                    <TextBlock Grid.Row="0" Text="PIPELINE VISUALIZER" FontSize="11" FontWeight="Bold"
+                               Foreground="#9ca3af" Margin="20,16,0,8"/>
+
+                    <!-- Stage cards -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                HorizontalAlignment="Center" Margin="0,4,0,12">
 
                         <!-- Bronze -->
                         <Border Style="{StaticResource StageCard}"
@@ -157,14 +165,12 @@
                                            Foreground="#CD7F32" Margin="0,0,0,8"/>
                                 <TextBlock Text="stg.SalesRaw" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
                                 <TextBlock Style="{StaticResource LabelText}" Text="Всього"/>
-                                <TextBlock Style="{StaticResource ValueText}"
-                                           Text="{Binding BronzeTotal}"/>
+                                <TextBlock Style="{StaticResource ValueText}" Text="{Binding BronzeTotal}"/>
                                 <TextBlock FontSize="12" Foreground="#CD7F32" Margin="0,6,0,0"
                                            Text="{Binding BronzeStatus}"/>
                             </StackPanel>
                         </Border>
 
-                        <!-- Arrow -->
                         <TextBlock Text="→" FontSize="32" Foreground="#1f2937"
                                    VerticalAlignment="Center" Margin="10,0"/>
 
@@ -176,14 +182,12 @@
                                            Foreground="#C0C0C0" Margin="0,0,0,8"/>
                                 <TextBlock Text="silver.SalesClean" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
                                 <TextBlock Style="{StaticResource LabelText}" Text="Прийнято"/>
-                                <TextBlock Style="{StaticResource ValueText}"
-                                           Text="{Binding SilverTotal}"/>
+                                <TextBlock Style="{StaticResource ValueText}" Text="{Binding SilverTotal}"/>
                                 <TextBlock FontSize="12" Foreground="#C0C0C0" Margin="0,6,0,0"
                                            Text="{Binding SilverStatus}"/>
                             </StackPanel>
                         </Border>
 
-                        <!-- Arrow -->
                         <TextBlock Text="→" FontSize="32" Foreground="#1f2937"
                                    VerticalAlignment="Center" Margin="10,0"/>
 
@@ -195,8 +199,7 @@
                                            Foreground="#FFD700" Margin="0,0,0,8"/>
                                 <TextBlock Text="dw.FactSales" FontSize="10" Foreground="#9ca3af" Margin="0,0,0,10"/>
                                 <TextBlock Style="{StaticResource LabelText}" Text="Завантажено"/>
-                                <TextBlock Style="{StaticResource ValueText}"
-                                           Text="{Binding GoldTotal}"/>
+                                <TextBlock Style="{StaticResource ValueText}" Text="{Binding GoldTotal}"/>
                                 <TextBlock FontSize="12" Foreground="#FFD700" Margin="0,6,0,0"
                                            Text="{Binding GoldStatus}"/>
                             </StackPanel>
@@ -204,17 +207,153 @@
 
                     </StackPanel>
 
+                    <!-- Current record card -->
+                    <Border Grid.Row="2" CornerRadius="8" Margin="20,0,20,8" Padding="16,12"
+                            VerticalAlignment="Top">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility"    Value="Collapsed"/>
+                                <Setter Property="Background"    Value="#052e16"/>
+                                <Setter Property="BorderBrush"   Value="#16a34a"/>
+                                <Setter Property="BorderThickness" Value="1.5"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowCurrentRecord}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                        <Setter Property="Background"  Value="#1c0a0a"/>
+                                        <Setter Property="BorderBrush" Value="#dc2626"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Status icon -->
+                            <TextBlock Grid.Column="0" FontSize="20" VerticalAlignment="Center"
+                                       Margin="0,0,14,0">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text"       Value="✓"/>
+                                        <Setter Property="Foreground" Value="#16a34a"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                <Setter Property="Text"       Value="✗"/>
+                                                <Setter Property="Foreground" Value="#dc2626"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <!-- Fields -->
+                            <StackPanel Grid.Column="1">
+                                <WrapPanel>
+                                    <TextBlock FontSize="11" Foreground="#6b7280" Margin="0,0,4,0">Store:</TextBlock>
+                                    <TextBlock FontSize="11" FontWeight="SemiBold" Margin="0,0,18,0"
+                                               Text="{Binding RecStore}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#e5e7eb"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                        <Setter Property="Foreground" Value="#fca5a5"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock FontSize="11" Foreground="#6b7280" Margin="0,0,4,0">Product:</TextBlock>
+                                    <TextBlock FontSize="11" FontWeight="SemiBold" Margin="0,0,18,0"
+                                               Text="{Binding RecProduct}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#e5e7eb"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                        <Setter Property="Foreground" Value="#fca5a5"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock FontSize="11" Foreground="#6b7280" Margin="0,0,4,0">Qty:</TextBlock>
+                                    <TextBlock FontSize="11" FontWeight="SemiBold" Margin="0,0,18,0"
+                                               Text="{Binding RecQty}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#e5e7eb"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                        <Setter Property="Foreground" Value="#fca5a5"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock FontSize="11" Foreground="#6b7280" Margin="0,0,4,0">Price:</TextBlock>
+                                    <TextBlock FontSize="11" FontWeight="SemiBold" Margin="0,0,18,0"
+                                               Text="{Binding RecPrice}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#e5e7eb"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                        <Setter Property="Foreground" Value="#fca5a5"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <TextBlock FontSize="11" Foreground="#6b7280" Margin="0,0,4,0">Час:</TextBlock>
+                                    <TextBlock FontSize="11" Foreground="#9ca3af"
+                                               Text="{Binding RecTime}"/>
+                                </WrapPanel>
+
+                                <!-- Rejection reason -->
+                                <TextBlock FontSize="11" FontStyle="Italic" Foreground="#f87171"
+                                           Margin="0,5,0,0" Text="{Binding RecReason}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RecStatus}" Value="rejected">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!-- Progress -->
+                            <TextBlock Grid.Column="2" VerticalAlignment="Center"
+                                       FontSize="11" Foreground="#4b5563"
+                                       Text="{Binding RecProgress}" Margin="12,0,0,0"/>
+                        </Grid>
+                    </Border>
+
                     <!-- Running indicator -->
-                    <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,16"
+                    <Border Grid.Row="3" HorizontalAlignment="Center" Margin="0,0,0,14"
                             Background="#111827" CornerRadius="12" Padding="12,5">
                         <TextBlock FontSize="12" FontWeight="SemiBold">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
-                                    <Setter Property="Text" Value="⬤  Зупинено"/>
+                                    <Setter Property="Text"       Value="⬤  Зупинено"/>
                                     <Setter Property="Foreground" Value="#555"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsRunning}" Value="True">
-                                            <Setter Property="Text" Value="⬤  Симуляція активна"/>
+                                            <Setter Property="Text"       Value="⬤  Симуляція активна"/>
                                             <Setter Property="Foreground" Value="#a855f7"/>
                                         </DataTrigger>
                                     </Style.Triggers>

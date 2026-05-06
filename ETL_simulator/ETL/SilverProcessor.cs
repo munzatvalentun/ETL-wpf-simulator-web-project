@@ -20,32 +20,40 @@ namespace ETL_simulator.ETL
                 .ToListAsync();
 
             if (raw.Count == 0)
-                return new SilverResult(0, 0, 0, 0, 0, 0, 0, 0);
+                return new SilverResult(0, 0, 0, 0, 0, 0, 0, 0, new Dictionary<int, string>());
 
             int rejected = 0, duplicates = 0;
             int nullStore = 0, nullProduct = 0, badQty = 0, badPrice = 0, nullDate = 0;
 
-            var toInsert = new List<SalesClean>();
-            var seen = new HashSet<(DateTime, string, string)>();
+            var toInsert        = new List<SalesClean>();
+            var seen            = new HashSet<(DateTime, string, string)>();
+            var rejectedReasons = new Dictionary<int, string>();
 
             foreach (var r in raw)
             {
                 r.IsProcessedToSilver = true;
 
-                // Validation з підрахунком причин
-                if (!r.SalesTime.HasValue)         { nullDate++;    rejected++; continue; }
-                if (r.StoreCode == null)            { nullStore++;   rejected++; continue; }
-                if (r.ProductCode == null)          { nullProduct++; rejected++; continue; }
-                if (!r.Quantity.HasValue || r.Quantity <= 0)
-                                                    { badQty++;      rejected++; continue; }
-                if (!r.UnitPrice.HasValue || r.UnitPrice <= 0)
-                                                    { badPrice++;    rejected++; continue; }
+                string? reason = null;
+                if      (!r.SalesTime.HasValue)                          { reason = "Відсутня дата";      nullDate++;    }
+                else if (r.StoreCode == null)                            { reason = "Null StoreCode";      nullStore++;   }
+                else if (r.ProductCode == null)                          { reason = "Null ProductCode";    nullProduct++; }
+                else if (!r.Quantity.HasValue  || r.Quantity  <= 0)     { reason = "Кількість ≤ 0";      badQty++;      }
+                else if (!r.UnitPrice.HasValue || r.UnitPrice <= 0)     { reason = "Ціна ≤ 0";           badPrice++;    }
+
+                if (reason != null)
+                {
+                    rejected++;
+                    rejectedReasons[r.Id] = reason;
+                    continue;
+                }
 
                 // Дедублікація в межах батчу
-                var key = (r.SalesTime.Value, r.StoreCode, r.ProductCode);
+                var key = (r.SalesTime!.Value, r.StoreCode!, r.ProductCode!);
                 if (seen.Contains(key))
                 {
-                    duplicates++; rejected++; continue;
+                    duplicates++; rejected++;
+                    rejectedReasons[r.Id] = "Дублікат (батч)";
+                    continue;
                 }
 
                 // Дедублікація проти існуючих silver-записів
@@ -59,7 +67,9 @@ namespace ETL_simulator.ETL
 
                 if (exists)
                 {
-                    duplicates++; rejected++; continue;
+                    duplicates++; rejected++;
+                    rejectedReasons[r.Id] = "Дублікат (БД)";
+                    continue;
                 }
 
                 seen.Add(key);
@@ -83,7 +93,7 @@ namespace ETL_simulator.ETL
             await _db.SaveChangesAsync();
 
             return new SilverResult(toInsert.Count, rejected, duplicates,
-                nullStore, nullProduct, badQty, badPrice, nullDate);
+                nullStore, nullProduct, badQty, badPrice, nullDate, rejectedReasons);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ETL_web_project.Data.Context;
+﻿using System.IO.Pipes;
+using ETL_web_project.Data.Context;
 using ETL_web_project.Enums;
 using ETL_web_project.Interfaces;
 using ETL_web_project.Data.Entities;
@@ -94,40 +95,19 @@ namespace ETL_web_project.Services
             if (job == null)
                 throw new Exception("Job not found.");
 
-            var run = new EtlRun
-            {
-                JobId = jobId,
-                Status = EtlStatus.Running,
-                StartTime = DateTime.Now,
-                ErrorMessage = string.Empty
-            };
-
-            _context.EtlRuns.Add(run);
-            await _context.SaveChangesAsync();
-
-            await AddLogAsync(run.RunId, LogLevel.Info, "Job manually triggered.");
-
             try
             {
-                await Task.Delay(1500);
-
-                run.Status = EtlStatus.Success;
-                run.EndTime = DateTime.Now;
-                run.ErrorMessage = string.Empty;
-                await _context.SaveChangesAsync();
-
-                await AddLogAsync(run.RunId, LogLevel.Info, "Job completed successfully.");
+                using var client = new NamedPipeClientStream(".", "etl-wpf-simulator", PipeDirection.Out);
+                await client.ConnectAsync(2000);
+                using var writer = new StreamWriter(client) { AutoFlush = true };
+                await writer.WriteLineAsync("RUN");
+                return 0;
             }
-            catch (Exception ex)
+            catch (TimeoutException)
             {
-                run.Status = EtlStatus.Failed;
-                run.EndTime = DateTime.Now;
-                run.ErrorMessage = ex.Message;
-                await _context.SaveChangesAsync();
-
-                await AddLogAsync(run.RunId, LogLevel.Error, $"Job failed: {ex.Message}");
+                throw new InvalidOperationException(
+                    "WPF Simulator не запущено. Запустіть ETL_simulator.exe і спробуйте знову.");
             }
-            return run.RunId;
         }
 
         private async Task AddLogAsync(long runId, LogLevel level, string message)

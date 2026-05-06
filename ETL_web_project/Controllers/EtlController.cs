@@ -46,9 +46,15 @@ namespace ETL_web_project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RunJob(int jobId)
         {
-            var runId = await _etlJobService.TriggerRunAsync(jobId);
-
-            TempData["JobRunMessage"] = $"Job #{jobId} manually triggered (RunId: {runId}).";
+            try
+            {
+                await _etlJobService.TriggerRunAsync(jobId);
+                TempData["JobRunMessage"] = "WPF Simulator отримав команду — крок запущено.";
+            }
+            catch (Exception ex)
+            {
+                TempData["JobRunMessage"] = $"Помилка: {ex.Message}";
+            }
 
             return RedirectToAction(nameof(Jobs));
         }
