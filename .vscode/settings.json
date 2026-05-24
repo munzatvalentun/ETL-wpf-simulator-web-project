@@ -1,4 +1,5 @@
 {
+  "explorer.excludeGitIgnore": true,
   "files.exclude": {
     "**/desktop.ini": true,
     "**/Thumbs.db": true,

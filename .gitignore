@@ -8,6 +8,9 @@ desktop.ini
 Thumbs.db
 ehthumbs.db
 
+# Sensitive credentials
+accounts.txt
+
 # Google Drive temporary upload files
 .tmp.driveupload/
 .tmp.drivedownload/
