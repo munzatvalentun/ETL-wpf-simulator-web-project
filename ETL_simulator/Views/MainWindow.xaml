@@ -130,9 +130,9 @@
 
                     <TextBlock Style="{StaticResource LabelText}" Text="Затримка між кроками"/>
                     <TextBlock FontSize="15" FontWeight="Bold" Foreground="#FFC107"
-                               Text="{Binding DelayMs, StringFormat='{}{0} мс'}"/>
-                    <Slider Style="{StaticResource SliderStyle}" Minimum="300" Maximum="5000"
-                            Value="{Binding DelayMs}" TickFrequency="100" Margin="0,4,0,10"/>
+                               Text="{Binding DelayDisplay}"/>
+                    <Slider Style="{StaticResource SliderStyle}" Minimum="300" Maximum="120000"
+                            Value="{Binding DelayMs}" TickFrequency="500" Margin="0,4,0,10"/>
 
                     <CheckBox Content="Генерувати дублікати" Foreground="#B0BEC5"
                               IsChecked="{Binding EnableDuplicates}" Margin="0,6"/>

@@ -113,7 +113,17 @@ namespace ETL_simulator.ViewModels
         public int DelayMs
         {
             get => _delayMs;
-            set { _delayMs = value; OnPropertyChanged(); }
+            set { _delayMs = value; OnPropertyChanged(); OnPropertyChanged(nameof(DelayDisplay)); }
+        }
+
+        public string DelayDisplay
+        {
+            get
+            {
+                if (_delayMs < 1000) return $"{_delayMs} мс";
+                double sec = _delayMs / 1000.0;
+                return sec == Math.Floor(sec) ? $"{(int)sec} с" : $"{sec:F1} с";
+            }
         }
 
         public int TotalGenerated { get => _totalGenerated; private set { _totalGenerated = value; OnPropertyChanged(); } }
