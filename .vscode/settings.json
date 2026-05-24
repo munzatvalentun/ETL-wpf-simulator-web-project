@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "**/desktop.ini": true,
+    "**/Thumbs.db": true,
+    "**/ehthumbs.db": true,
+    "**/.tmp.driveupload": true,
+    "**/.tmp.drivedownload": true
+  }
+}
