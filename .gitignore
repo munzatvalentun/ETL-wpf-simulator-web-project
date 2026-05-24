@@ -3,6 +3,18 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Windows Explorer metadata files
+desktop.ini
+Thumbs.db
+ehthumbs.db
+
+# Google Drive temporary upload files
+.tmp.driveupload/
+.tmp.drivedownload/
+
+# Claude Code local settings (worktrees, sessions — not for source control)
+.claude/
+
 # User-specific files
 *.rsuser
 *.suo
