@@ -6,8 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ETL_web_project</title>
 
+    <!-- Apply saved theme before first paint to avoid flash -->
+    <script>
+        (function () {
+            var t = localStorage.getItem('etl-theme') || 'dark';
+            document.documentElement.className = t + '-theme';
+        })();
+    </script>
+
     <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/navbar-sidebar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
 
     @RenderSection("Styles", required: false)
 </head>
@@ -144,6 +153,12 @@
 
                 <div class="nav-right">
 
+                    <!-- Light / Dark theme toggle -->
+                    <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+                        <i class="fa-solid fa-moon  icon-moon"></i>
+                        <i class="fa-solid fa-sun   icon-sun"></i>
+                    </button>
+
                     <button class="icon-btn js-toggle-fullscreen-btn" id="fullscreenBtn" aria-label="Enter fullscreen mode">
                         <svg class="toggle-fullscreen-svg" width="28" height="28" viewBox="-2 -2 28 28">
                             <g class="icon-fullscreen-enter">
@@ -176,6 +191,8 @@
     </div>
 
     <script src="~/js/navbar-sidebar.js"></script>
+    <script src="~/js/theme.js"></script>
+    <script src="~/js/theme-charts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

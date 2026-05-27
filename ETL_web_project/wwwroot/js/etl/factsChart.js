@@ -1,4 +1,4 @@
-﻿(function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     if (!window.factTrendData || !Array.isArray(window.factTrendData)) {
         return;
     }
@@ -55,4 +55,4 @@
             }
         }
     });
-})();
+});

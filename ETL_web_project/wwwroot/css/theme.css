@@ -1,0 +1,1146 @@
+/* =====================================================
+   COMPLETE LIGHT THEME  —  html.light-theme
+   Covers every hardcoded dark colour in:
+     navbar-sidebar.css · dashboard-main.css
+     jobs.css · logs.css · staging.css · schedule.css
+     schedule-edit-create.css · facts.css
+     admin.css · settings.css
+   ===================================================== */
+
+/* ─────────────────────────────────────────────────────
+   1. PAGE SHELL  (navbar-sidebar.css)
+───────────────────────────────────────────────────── */
+html.light-theme body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+html.light-theme .dashboard {
+    background: #f1f5f9;
+    min-height: 100vh;
+}
+
+html.light-theme .dashboard-footer {
+    color: #64748b;
+    background: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ── Sidebar ── */
+html.light-theme .sidebar {
+    background: #ffffff;
+    box-shadow: 1px 0 0 #e2e8f0;
+}
+
+html.light-theme .sidebar-header h2 {
+    color: #1e293b;
+}
+
+html.light-theme .logo {
+    color: #6B8DE3;
+}
+
+html.light-theme .sidebar-links h4 {
+    color: #64748b;
+}
+
+html.light-theme .sidebar-links .menu-separator {
+    background: #e2e8f0;
+}
+
+html.light-theme .sidebar-links li a {
+    color: #475569;
+}
+
+html.light-theme .sidebar-links li a:hover {
+    background: rgba(107, 141, 227, 0.09);
+    color: #1e293b;
+}
+
+html.light-theme .sidebar:hover .user-account {
+    background: rgba(107, 141, 227, 0.07);
+}
+
+html.light-theme .user-account .user-profile {
+    color: #1e293b;
+}
+
+/* ── Top Navbar ── */
+html.light-theme .top-navbar {
+    background: #ffffff;
+    box-shadow: 0 1px 0 #e2e8f0;
+}
+
+html.light-theme .icon-btn {
+    color: #475569;
+}
+
+html.light-theme .icon-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+html.light-theme .toggle-fullscreen-svg path {
+    stroke: #1e293b;
+}
+
+/* ─────────────────────────────────────────────────────
+   2. COMMON CARD
+───────────────────────────────────────────────────── */
+html.light-theme .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .card-title {
+    color: #1e293b;
+}
+
+html.light-theme .card-subtitle {
+    color: #64748b;
+}
+
+/* ─────────────────────────────────────────────────────
+   3. DASHBOARD  (dashboard-main.css)
+───────────────────────────────────────────────────── */
+/* kpi-icon background intentionally NOT overridden —
+   every icon has a gradient subclass (.kpi-icon-purple etc.)
+   that sets a coloured gradient. Overriding .kpi-icon here
+   with higher specificity would defeat those gradients.
+   White icon colour stays visible on the gradient backgrounds. */
+
+html.light-theme .kpi-label,
+html.light-theme .kpi-sub {
+    color: #64748b;
+}
+
+html.light-theme .kpi-value {
+    color: #1e293b;
+}
+
+html.light-theme .range-menu {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+html.light-theme .range-item {
+    color: #475569;
+}
+
+html.light-theme .range-item:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+html.light-theme .range-item.active {
+    color: #7D1C8D;
+}
+
+html.light-theme .chart-body {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+}
+
+html.light-theme .fresh-label,
+html.light-theme .fresh-sub {
+    color: #64748b;
+}
+
+html.light-theme .fresh-value {
+    color: #1e293b;
+}
+
+html.light-theme .fresh-entities {
+    border-top-color: #e2e8f0;
+}
+
+html.light-theme .freshness-divider {
+    background: linear-gradient(90deg, rgba(107, 141, 227, 0.35), transparent);
+}
+
+html.light-theme .topn-title {
+    color: #475569;
+}
+
+html.light-theme .table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .compact-table tbody tr:hover {
+    background: rgba(107, 141, 227, 0.06);
+}
+
+html.light-theme .table-empty {
+    color: #94a3b8;
+}
+
+html.light-theme .section-title,
+html.light-theme .card-label {
+    color: #64748b;
+}
+
+html.light-theme .card-value {
+    color: #1e293b;
+}
+
+/* ─────────────────────────────────────────────────────
+   4. ETL JOBS PAGE  (jobs.css)
+───────────────────────────────────────────────────── */
+html.light-theme .etl-jobs-header-left h1 {
+    color: #1e293b;
+}
+
+html.light-theme .etl-jobs-header-left p,
+html.light-theme .jobs-table-subtitle {
+    color: #64748b;
+}
+
+html.light-theme .jobs-search-form {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+html.light-theme .jobs-search-form input {
+    color: #1e293b;
+}
+
+html.light-theme .jobs-table-header .card-title {
+    color: #1e293b;
+}
+
+html.light-theme .jobs-table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .jobs-table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .jobs-table tbody tr:hover {
+    background: rgba(107, 141, 227, 0.06);
+}
+
+html.light-theme .job-name {
+    color: #1e293b;
+}
+
+html.light-theme .job-code {
+    color: #94a3b8;
+}
+
+html.light-theme .jobs-table-scroll::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+html.light-theme .jobs-table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(107, 141, 227, 0.4);
+}
+
+html.light-theme .btn-outline-primary {
+    border-color: #6B8DE3;
+    color: #4f46e5;
+}
+
+html.light-theme .btn-outline-secondary {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+html.light-theme .btn-outline-primary:hover,
+html.light-theme .btn-outline-secondary:hover {
+    background: linear-gradient(135deg, #6B8DE3, #7D1C8D);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* ─────────────────────────────────────────────────────
+   5. ETL LOGS PAGE  (logs.css)
+───────────────────────────────────────────────────── */
+html.light-theme .logs-container .card-header .card-title {
+    color: #1e293b;
+}
+
+html.light-theme .logs-container .card-header .card-subtitle {
+    color: #64748b;
+}
+
+html.light-theme .logs-container .table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .logs-container .table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .logs-container .compact-table tbody tr:hover {
+    background: rgba(107, 141, 227, 0.07);
+}
+
+html.light-theme .chip-outline {
+    border-color: #6B8DE3;
+    color: #4f46e5;
+}
+
+html.light-theme .table-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+html.light-theme .table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(107, 141, 227, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────
+   6. STAGING PAGE  (staging.css)
+───────────────────────────────────────────────────── */
+html.light-theme .metric-label {
+    color: #64748b;
+}
+
+html.light-theme .metric-value {
+    color: #1e293b;
+}
+
+html.light-theme .metric-sub {
+    color: #94a3b8;
+}
+
+html.light-theme .stg-header-sub {
+    color: #64748b;
+}
+
+html.light-theme .stg-table-select-btn {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+html.light-theme .stg-rows-table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .stg-rows-table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .stg-rows-table tbody tr:hover {
+    background: rgba(79, 70, 229, 0.05);
+}
+
+html.light-theme .stg-table-footer {
+    color: #94a3b8;
+}
+
+html.light-theme .summary-label,
+html.light-theme .quality-label {
+    color: #64748b;
+}
+
+html.light-theme .summary-value,
+html.light-theme .quality-value {
+    color: #1e293b;
+}
+
+html.light-theme .stg-load-card .chart-body {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+html.light-theme .stg-error-table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .stg-error-table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+/* ─────────────────────────────────────────────────────
+   7. SCHEDULE PAGE  (schedule.css)
+───────────────────────────────────────────────────── */
+html.light-theme .etl-schedule-header .title-block h2 {
+    color: #1e293b;
+}
+
+html.light-theme .etl-schedule-header .subtitle {
+    color: #64748b;
+}
+
+html.light-theme .etl-schedule-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .etl-schedule-card .card-text .label {
+    color: #64748b;
+}
+
+html.light-theme .etl-schedule-card .card-text .value {
+    color: #1e293b;
+}
+
+html.light-theme .etl-schedule-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .panel-header-row h3 {
+    color: #1e293b;
+}
+
+html.light-theme .etl-schedule-table thead th {
+    color: #64748b;
+}
+
+html.light-theme .etl-schedule-table tbody tr {
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .etl-schedule-table tbody td {
+    color: #334155;
+}
+
+html.light-theme .etl-schedule-table .job-name {
+    color: #1e293b;
+}
+
+html.light-theme .etl-schedule-table .job-code {
+    color: #94a3b8;
+}
+
+html.light-theme .freq-text {
+    color: #7D1C8D;
+}
+
+html.light-theme .icon-btn-circle {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+}
+
+html.light-theme .icon-btn-circle:hover {
+    background: rgba(107, 141, 227, 0.15);
+    color: #1e293b;
+}
+
+html.light-theme .empty-row {
+    color: #94a3b8;
+}
+
+/* ─────────────────────────────────────────────────────
+   8. SCHEDULE CREATE / EDIT  (schedule-edit-create.css)
+───────────────────────────────────────────────────── */
+html.light-theme .etl-schedule-create-page,
+html.light-theme .etl-schedule-edit-page {
+    color: #1e293b;
+}
+
+html.light-theme .page-header p {
+    color: #64748b;
+}
+
+html.light-theme .form-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .input-control {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .input-control:focus {
+    border-color: #6B8DE3;
+    background: #ffffff;
+}
+
+html.light-theme .btn-cancel {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+html.light-theme .btn-cancel:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* ─────────────────────────────────────────────────────
+   9. FACT EXPLORER  (facts.css)
+───────────────────────────────────────────────────── */
+html.light-theme .fx-filter-bar {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+html.light-theme .fx-filter-group label {
+    color: #64748b;
+}
+
+html.light-theme .fx-filter-group input[type="date"],
+html.light-theme .fx-filter-group input[type="text"] {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .fx-filter-group input:focus {
+    border-color: #6B8DE3;
+    box-shadow: 0 0 0 1px rgba(107, 141, 227, 0.25);
+}
+
+html.light-theme .fx-summary-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .fx-summary-label {
+    color: #64748b;
+}
+
+html.light-theme .fx-summary-value {
+    color: #1e293b;
+}
+
+html.light-theme .fx-summary-sub {
+    color: #94a3b8;
+}
+
+html.light-theme .fx-trend-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .fx-card-header h3 {
+    color: #1e293b;
+}
+
+html.light-theme .fx-card-header span {
+    color: #64748b;
+}
+
+html.light-theme .fx-top-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .fx-top-column h4 {
+    color: #1e293b;
+}
+
+html.light-theme .fx-top-item {
+    color: #475569;
+}
+
+html.light-theme .fx-top-item span:last-child {
+    color: #7D1C8D;
+}
+
+html.light-theme .fx-top-item:nth-child(odd) {
+    background: #f8fafc;
+}
+
+html.light-theme .fx-top-item:nth-child(even) {
+    background: #f1f5f9;
+}
+
+html.light-theme .fx-records-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .fx-records-table thead th {
+    color: #64748b;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .fx-records-table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .fx-records-table tbody tr:nth-child(odd) {
+    background: #f8fafc;
+}
+
+html.light-theme .fx-records-table tbody tr:nth-child(even) {
+    background: #ffffff;
+}
+
+html.light-theme .fx-records-table tbody tr:hover {
+    background: rgba(107, 141, 227, 0.08);
+}
+
+html.light-theme .fx-empty {
+    color: #94a3b8;
+}
+
+html.light-theme .fx-records-scroll::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+html.light-theme .fx-records-scroll::-webkit-scrollbar-thumb {
+    background: rgba(107, 141, 227, 0.4);
+}
+
+/* ─────────────────────────────────────────────────────
+   10. ADMIN PAGE  (admin.css)
+───────────────────────────────────────────────────── */
+html.light-theme .admin-container {
+    color: #1e293b;
+}
+
+html.light-theme .admin-summary-cards .summary-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+html.light-theme .admin-summary-cards .summary-label {
+    color: #64748b;
+    opacity: 1;
+}
+
+html.light-theme .admin-summary-cards .summary-value {
+    color: #1e293b;
+}
+
+html.light-theme .admin-table-wrapper {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .admin-table-scroll::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+html.light-theme .admin-table-scroll::-webkit-scrollbar-thumb {
+    background: rgba(107, 141, 227, 0.4);
+}
+
+html.light-theme .admin-table thead {
+    background: #f8fafc;
+}
+
+html.light-theme .admin-table thead th {
+    color: #475569;
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .admin-table tbody td {
+    color: #334155;
+    border-bottom-color: #f1f5f9;
+}
+
+html.light-theme .admin-table tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+html.light-theme .admin-table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+html.light-theme .form-select-small {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .btn-secondary {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+html.light-theme .btn-secondary:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+html.light-theme .btn-toggle {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+html.light-theme .modal-overlay {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+html.light-theme .modal-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+    color: #1e293b;
+}
+
+html.light-theme .modal-card h3 {
+    color: #1e293b;
+}
+
+html.light-theme .modal-card p {
+    color: #475569;
+}
+
+html.light-theme .modal-body label {
+    color: #475569;
+}
+
+html.light-theme .admin-container .form-control {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .admin-container .form-control:focus {
+    border-color: #6B8DE3;
+    background: #ffffff;
+}
+
+html.light-theme .admin-search-input {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .admin-search-input:focus {
+    border-color: #6B8DE3;
+    background: #ffffff;
+}
+
+html.light-theme .btn-clear-search {
+    border-color: #cbd5e1;
+    color: #475569;
+}
+
+html.light-theme .btn-clear-search:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* ─────────────────────────────────────────────────────
+   11. SETTINGS PAGE  (settings.css)
+───────────────────────────────────────────────────── */
+html.light-theme .settings-container {
+    color: #1e293b;
+}
+
+html.light-theme .settings-tabs {
+    border-bottom-color: #e2e8f0;
+}
+
+html.light-theme .tab-btn {
+    color: #64748b;
+}
+
+html.light-theme .tab-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: #1e293b;
+}
+
+html.light-theme .tab-btn.active {
+    color: #ffffff;
+    background: linear-gradient(90deg, #6B8DE3, #7D1C8D);
+}
+
+html.light-theme .tab-content {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    color: #1e293b;
+}
+
+html.light-theme .form-control,
+html.light-theme .contact-form input,
+html.light-theme .contact-form textarea {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme .form-control:focus {
+    border-color: #6B8DE3;
+    background: #ffffff;
+}
+
+html.light-theme .profile-meta-item {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+html.light-theme .profile-meta-label {
+    color: #64748b;
+    opacity: 1;
+}
+
+html.light-theme .profile-meta-value {
+    color: #1e293b;
+}
+
+html.light-theme .settings-container .modal-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    color: #1e293b;
+}
+
+/* ─────────────────────────────────────────────────────
+   12. SHARED — labels, headings, inputs, alerts
+───────────────────────────────────────────────────── */
+html.light-theme label {
+    color: #475569;
+}
+
+html.light-theme h1,
+html.light-theme h2,
+html.light-theme h3,
+html.light-theme h4,
+html.light-theme h5,
+html.light-theme h6 {
+    color: #1e293b;
+}
+
+html.light-theme p {
+    color: #334155;
+}
+
+html.light-theme input,
+html.light-theme select,
+html.light-theme textarea {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+html.light-theme select option {
+    background: #ffffff;
+    color: #1e293b;
+}
+
+html.light-theme .alert-info {
+    background: rgba(107, 141, 227, 0.08);
+    border-color: rgba(107, 141, 227, 0.28);
+    color: #4338ca;
+}
+
+html.light-theme .request-info {
+    color: #475569;
+}
+
+/* ─────────────────────────────────────────────────────
+   13. STATUS COLOURS, BADGES & PILLS
+   Light colours (#facc15 yellow, #4ade80 light-green,
+   #93c5fd light-blue etc.) are invisible on white.
+   Replace every one with a darker, accessible shade.
+───────────────────────────────────────────────────── */
+
+/* ── ETL row-level status colours (dashboard + logs tables) ── */
+html.light-theme .etl-status-success td   { color: #059669 !important; }
+html.light-theme .etl-status-failed td    { color: #dc2626 !important; }
+html.light-theme .etl-status-running td,
+html.light-theme .etl-status-inprogress td { color: #d97706 !important; }
+html.light-theme .etl-status-warning td  { color: #d97706 !important; }
+html.light-theme .etl-status-info td     { color: #2563eb !important; }
+
+/* ── Status pills (jobs table & schedule table) ── */
+html.light-theme .status-success {
+    background: rgba(22, 163, 74, 0.1);
+    color: #15803d;
+}
+html.light-theme .status-failed {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+}
+html.light-theme .status-running {
+    background: rgba(217, 119, 6, 0.1);
+    color: #d97706;
+}
+html.light-theme .status-never {
+    background: rgba(100, 116, 139, 0.1);
+    color: #475569;
+}
+html.light-theme .status-unknown { color: #64748b; }
+html.light-theme .status-next    { color: #4f46e5; }
+
+/* ── Active / inactive pills (jobs table) ── */
+html.light-theme .active-yes {
+    background: rgba(5, 150, 105, 0.1);
+    color: #059669;
+}
+html.light-theme .active-no {
+    background: rgba(100, 116, 139, 0.1);
+    color: #64748b;
+}
+
+/* ── Schedule active / paused pills ── */
+html.light-theme .pill-active {
+    background: rgba(22, 163, 74, 0.1);
+    color: #15803d;
+}
+html.light-theme .pill-paused {
+    background: rgba(100, 116, 139, 0.1);
+    color: #475569;
+}
+
+/* ── KPI pills (dashboard cards) ── */
+html.light-theme .pill-success {
+    background: rgba(22, 163, 74, 0.1);
+    color: #15803d;
+}
+html.light-theme .pill-danger {
+    background: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+}
+
+/* ── Log-level badges (staging + logs pages) ── */
+html.light-theme .log-level-error {
+    background: rgba(220, 38, 38, 0.08);
+    color: #dc2626;
+}
+html.light-theme .log-level-warn {
+    background: rgba(217, 119, 6, 0.1);
+    color: #d97706;
+}
+html.light-theme .log-level-info {
+    background: rgba(37, 99, 235, 0.08);
+    color: #2563eb;
+}
+
+/* ── Admin role badges ── */
+html.light-theme .badge-admin {
+    background: rgba(255, 200, 0, 0.1);
+    border-color: rgba(202, 138, 4, 0.35);
+    color: #92400e;
+}
+html.light-theme .badge-analyst {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #3730a3;
+}
+html.light-theme .badge-engineer {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #065f46;
+}
+
+/* ─────────────────────────────────────────────────────
+   14. GLOBAL SCROLLBAR
+───────────────────────────────────────────────────── */
+html.light-theme ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+html.light-theme ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* ─────────────────────────────────────────────────────
+   15. CANVAS  (Chart.js — keep transparent)
+───────────────────────────────────────────────────── */
+html.light-theme canvas {
+    background: transparent;
+}
+
+/* =====================================================
+   THEME TOGGLE BUTTON (navbar)
+   ===================================================== */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 7px 9px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* dark = moon visible; light = sun visible */
+.theme-toggle-btn .icon-moon { display: block; }
+.theme-toggle-btn .icon-sun  { display: none;  }
+
+html.light-theme .theme-toggle-btn {
+    color: #475569;
+}
+
+html.light-theme .theme-toggle-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+html.light-theme .theme-toggle-btn .icon-moon { display: none;  }
+html.light-theme .theme-toggle-btn .icon-sun  { display: block; }
+
+/* =====================================================
+   APPEARANCE TAB  —  toggle switch & preview cards
+   ===================================================== */
+.appearance-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.appearance-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #252736;
+}
+
+html.light-theme .appearance-row {
+    border-bottom-color: #e2e8f0;
+}
+
+.appearance-row:last-child {
+    border-bottom: none;
+}
+
+.appearance-label h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 3px;
+}
+
+html.light-theme .appearance-label h4 {
+    color: #1e293b;
+}
+
+.appearance-label p {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+html.light-theme .appearance-label p {
+    color: #64748b;
+}
+
+/* iOS-style toggle switch */
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-track {
+    position: absolute;
+    inset: 0;
+    background: #374151;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+.toggle-track::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #ffffff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.toggle-switch input:checked + .toggle-track {
+    background: linear-gradient(90deg, #6B8DE3, #7D1C8D);
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+    transform: translateX(24px);
+}
+
+/* Theme preview cards */
+.theme-preview {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.theme-preview-card {
+    flex: 1;
+    border-radius: 10px;
+    padding: 14px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.theme-preview-card:hover {
+    transform: translateY(-2px);
+}
+
+.theme-preview-card.dark-preview {
+    background: #0b1120;
+    color: #e2e8f0;
+    border-color: #374151;
+}
+
+.theme-preview-card.light-preview {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #e2e8f0;
+}
+
+.theme-preview-card.selected {
+    border-color: #6B8DE3;
+}
+
+.theme-preview-card .preview-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.dark-preview  .preview-dot { background: #1e2535; }
+.light-preview .preview-dot { background: #ffffff; border: 1px solid #e2e8f0; }
